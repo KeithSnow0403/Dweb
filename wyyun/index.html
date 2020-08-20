@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>first</title>
+    <link rel="stylesheet" href="css/mystyle.css">
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
+    <script src="js/vue.js"></script>
+    <script src="js/axios.js"></script>
+</head>
+<body>
+    <div id="home">
+        <h1>我的第一个页面</h1>
+        <img src="img/admin.jpg" alt="">
+        <hr />
+        <p v-if="movies.length==0">尚未获取</p>
+        <div class="imglist">
+            <img v-for="img in movies" v-bind:src="apiurl+img.pic" alt="">
+        </div>
+        
+        <button v-on:click="getData()">获取</button>
+    </div>
+    
+<script>
+    new Vue({
+        el: '#home',
+        data: {
+            img: [],
+            movies:[],
+            apiurl:'https://api.dweb.club/'
+        },
+        methods:{
+            getData(){
+                var self = this
+                console.log('开始获取')
+                axios({
+                    method:'get',
+                    type:'json',
+                    url:'https://api.dweb.club/dweb-api/get-index-data'
+                }).then(function(res){
+                    console.log(res.data.newsdata)
+                    self.movies = res.data.newsdata
+                })
+            }
+        }
+    })
+</script>    
+</body>
+
+</html>
