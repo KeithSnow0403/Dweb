@@ -12,43 +12,46 @@
 </head>
 <body>
     <div id="home">
-        <h1>
-            {{ siteinfo.title }}
-        </h1>
-        <img src="/upload/{{ siteinfo.logo }}" alt="">
-        <hr />
-        <p v-if="movies.length==0">尚未获取</p>
-        <div class="imglist">
-            <img v-for="img in movies" v-bind:src="apiurl+img.pic" alt="">
+        <div class="header">
+            <h1>
+                {{ siteinfo.title }}
+            </h1>
+            <img src="/upload/{{ siteinfo.logo }}" alt="">
         </div>
         
-        <button v-on:click="getData()">获取</button>
+        <hr />
+        
+        <div class="content">
+            <div class="menu">
+                <div class="item">
+                    <span>Django后端</span>
+                </div>
+                <div class="item">
+                    <span>Vuejs前端</span>
+                </div>
+                <div class="item">
+                    <span>实战博客</span>
+                </div>
+                <div class="item">
+                    <span>项目部署</span>
+                </div>
+            </div>
+
+            <div class="userlist">
+            
+            </div>
+            
+        </div>
+    
+        <hr />
+
+        <div class="foot">
+            Copyright © 2020 KeithSnow
+        </div>
+
     </div>
     
-<script>
-    new Vue({
-        el: '#home',
-        data: {
-            img: [],
-            movies:[],
-            apiurl:'https://api.dweb.club/'
-        },
-        methods:{
-            getData(){
-                var self = this
-                console.log('开始获取')
-                axios({
-                    method:'get',
-                    type:'json',
-                    url:'https://api.dweb.club/dweb-api/get-index-data'
-                }).then(function(res){
-                    console.log(res.data.newsdata)
-                    self.movies = res.data.newsdata
-                })
-            }
-        }
-    })
-</script>    
+    
 </body>
 
-</html>
+</html> 
