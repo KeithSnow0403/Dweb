@@ -25,7 +25,7 @@
             <div class="menu">
                 {% for class in classes %}
                 <div class="item">
-                    <a href="/classes">{{ class.text }}</a>
+                    <a href="/classes/?id={{ class.id }}">{{ class.text }}</a>
                 </div>
                 {% endfor %}
             </div>

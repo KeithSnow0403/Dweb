@@ -32,7 +32,9 @@ def classes(request):
     # 菜单分类
     classes = Classes.objects.all()
     # 当前用户列表
-    choosed = Classes.objects.get(id=3) # 之前删除过两次，所以从3开始
+    choosed_id = request.GET['id']
+    print(choosed_id)
+    choosed = Classes.objects.get(id=choosed_id) # 之前删除过两次，所以从3开始
     userlist = Userinfo.objects.filter(belong=choosed)
     data = {
         "siteinfo": siteinfo,
