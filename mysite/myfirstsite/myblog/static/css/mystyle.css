@@ -42,6 +42,16 @@
 } 
 
 #home .content .userlist{
-    height: 200px;
+    min-width: 700px;
+    min-height: 200px;
+    padding-top: 20px;
+    height: auto;
     border: 1px solid #000;
+    float: left;
+}
+
+#home .content .userlist .user{
+    float: left;
+    margin-left: 20px;
+    width: 20%;
 }
