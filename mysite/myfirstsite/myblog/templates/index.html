@@ -12,8 +12,10 @@
 </head>
 <body>
     <div id="home">
-        <h1>我的第一个页面</h1>
-        <img src="/static/img/admin.jpg" alt="">
+        <h1>
+            {{ siteinfo.title }}
+        </h1>
+        <img src="/upload/{{ siteinfo.logo }}" alt="">
         <hr />
         <p v-if="movies.length==0">尚未获取</p>
         <div class="imglist">
