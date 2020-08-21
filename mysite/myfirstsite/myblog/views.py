@@ -25,3 +25,19 @@ def index(request):
     }
 
     return render(request, 'index.html', data)
+
+def classes(request):
+    # 站点基础信息
+    siteinfo = SiteInfo.objects.all()[0]
+    # 菜单分类
+    classes = Classes.objects.all()
+    # 当前用户列表
+    choosed = Classes.objects.get(id=3) # 之前删除过两次，所以从3开始
+    userlist = Userinfo.objects.filter(belong=choosed)
+    data = {
+        "siteinfo": siteinfo,
+        "classes": classes,
+        "userlist": userlist
+    }
+
+    return render(request, 'classes.html', data)
