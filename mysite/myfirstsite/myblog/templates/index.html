@@ -12,45 +12,51 @@
 </head>
 <body>
     <div id="home">
-        <div class="header">
-            <h1>
-                {{ siteinfo.title }}
-            </h1>
-            <img src="/upload/{{ siteinfo.logo }}" alt="">
+        <div v-if="onOff">
+            <div class="header">
+                <h1>
+                    {{ siteinfo.title }}
+                </h1>
+                <img src="/upload/{{ siteinfo.logo }}" alt="">
+            </div>
+            
+            <hr />
+            
+            <div class="content">
+                <div class="menu">
+    
+                    <div v-if="item.id==choosed" v-for="item in classes" class="item" style="background: #777; color: #fff;">
+                        <a>[[item.text]]</a>
+                    </div>
+                    <div v-else v-on:click="chooseClass(item.id)" class="item">
+                        <a>[[item.text]]</a>
+                    </div>
+    
+                </div>
+    
+                <div v-if="item.id==choosed" v-for="item in classes" class="userlist">
+                    <p>[[item.text]]</p>
+                    <hr> 
+    
+                    <div v-if="item.userlist.length>0" v-for="user in item.userlist" class="user">
+                        <img src="/static/admin.jpg" alt="">
+                        <p>[[user.nickname]]</p>
+                    </div>
+                    <p v-else>没有用户</p>
+    
+                    
+                </div>
+            </div>
         </div>
         
-        <hr />
-        
-        <div class="content">
-            <div class="menu">
-
-                <div v-if="item.id==choosed" v-for="item in classes" class="item" style="background: #777; color: #fff;">
-                    <a>[[item.text]]</a>
-                </div>
-                <div v-else v-on:click="chooseClass(item.id)" class="item">
-                    <a>[[item.text]]</a>
-                </div>
-
-            </div>
-
-            <div v-if="item.id==choosed" v-for="item in classes" class="userlist">
-                <p>[[item.text]]</p>
-                <hr> 
-
-                <div v-if="item.userlist.length>0" v-for="user in item.userlist" class="user">
-                    <img src="/static/admin.jpg" alt="">
-                    <p>[[user.nickname]]</p>
-                </div>
-                <p v-else>没有用户</p>
-
-                
-            </div>
-        </div>
     
         <hr />
 
         <div class="foot">
+            <input v-model="inputText" type="text" style="height: 30ox; width: 700px;">
+            <p>[[inputText]]</p>
             Copyright © 2020 KeithSnow
+            <button @click="onOffClick">开关</button>
         </div>
 
     </div>
@@ -61,7 +67,9 @@
             el: '#home',
             data: {
                 choosed: 3, //注意这里和up不一样，up是1，我之前删过两次，开始的值为3
-                classes: []
+                classes: [],
+                onOff: true,
+                inputText:''
             },
             mounted() {
                 this.getData()
@@ -80,6 +88,9 @@
                 chooseClass(id){
                     console.log(id)
                     this.choosed = id
+                },
+                onOffClick(){
+                    this.onOff = !this.onOff
                 }
             },
         })
