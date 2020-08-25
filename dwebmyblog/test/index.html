@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <h1>当前开发状态：{{ msg }}</h1> -->
+    <dweb-msg></dweb-msg>
+    <dweb-msg></dweb-msg>
+    <dweb-msg></dweb-msg>
+    <dweb-msg></dweb-msg>
+    </div>
+
+    <script>
+        Vue.component('dweb-msg',{
+            data() {
+                return {
+                    msg:'开发完毕'
+                }
+            },
+            template: "<h1>当前开发状态：{{ msg }}</h1>",
+        })
+
+        new Vue({
+            el: "#app",
+            
+            methods: {
+                
+            },
+        })
+    </script>
+</body>
+</html>
