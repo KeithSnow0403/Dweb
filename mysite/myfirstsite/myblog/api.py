@@ -36,3 +36,19 @@ def api_test(requset):
             data_item["userlist"].append(user_data)
         data["classes"].append(data_item)
     return Response(data)
+
+
+@api_view(['GET'])
+def getMenuList(requset):
+    allClasses = Classes.objects.all()
+    
+    # 整理数据为json
+    data = []
+    for c in allClasses:
+        # 设计单条数据的结构
+        data_item = {
+            'id':c.id,
+            'text':c.text
+        }
+        data.append(data_item)
+    return Response(data)

@@ -6,23 +6,13 @@ Vue.use(VueRouter)
   const routes = [
   {
     path: '/',
-    name: 'Django',
-    component: () => import('../views/Django.vue')
+    name: 'UserList',
+    component: () => import('../views/UserList.vue')
   }, 
   {
-    path: '/',
+    path: '/vuecli',
     name: 'VueCli',
     component: () => import('../views/Vuecli.vue')
-  }, 
-  {
-    path: '/',
-    name: 'Django',
-    component: () => import('../views/Django.vue')
-  }, 
-  {
-    path: '/',
-    name: 'Django',
-    component: () => import('../views/Django.vue')
   }, 
   {
     path: '/about',

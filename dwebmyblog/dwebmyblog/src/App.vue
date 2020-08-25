@@ -10,17 +10,22 @@
 
       <div class="content">
         <div class="menu">
-          <div class="item" style="background: #777; color: #fff;">
-            <router-link to="/" style="color:#fff;">Django</router-link>
-          </div>
-          <div class="item">
-            <router-link to="/Vuecli">VueCli</router-link>
-          </div>
-          <div class="item">
-            <a>实战博客</a>
-          </div>
-          <div class="item">
-            <a>项目部署</a>
+          <div v-for="item in menuList" :key="item.id" class="item">
+            <div 
+              v-if="item.id==choosed" 
+              style="background: #777; color: #fff;"
+              @click="chooseMenu(item.id)"
+            >
+              <router-link to="/" style="color:#fff;">{{item.text}}</router-link>
+            </div>
+
+            <div 
+              v-else 
+              style="color: #000;" 
+              @click="chooseMenu(item.id)"
+            >
+              <router-link to="/" style="color:#000;">{{item.text}}</router-link>
+            </div>
           </div>
         </div>
 
@@ -41,7 +46,36 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {
+  data() {
+    return {
+      menuList: [],
+      choosed: 3,
+    };
+  },
+  mounted() {
+    this.getMenuList();
+  },
+  methods: {
+    //获取分类列表
+    getMenuList() {
+      console.log("开始获取分类");
+      axios({
+        url: "http://127.0.0.1:9000/get-menu-list/",
+        type: "json",
+        method: "get",
+      }).then((res) => {
+        console.log(res);
+        this.menuList = res.data;
+      });
+    },
+    chooseMenu(id){
+      console.log(id)
+      this.choosed = id
+    }
+  },
+};
 </script>
 
 <style>
