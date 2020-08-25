@@ -8,30 +8,30 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 export default {
-    data(){
-        return {
-            imglist:[]
-        }
+  data() {
+    return {
+      imglist: [],
+    };
+  },
+  //用户在看到界面之前，最后vue提供的一次函数执行
+  mounted() {
+    this.getData();
+  },
+  methods: {
+    getData() {
+      axios({
+        // url:'https://api.dweb.club/dweb-api/get-index-data',
+        url: "http://127.0.0.1:9000/api/",
+        type: "json",
+        method: "get",
+      }).then((res) => {
+        console.log(res);
+        // this.imglist = res.data.newsdata
+      });
     },
-    //用户在看到界面之前，最后vue提供的一次函数执行
-    mounted() {
-        this.getData()
-    },
-    methods: {
-        getData(){
-            axios({
-                // url:'https://api.dweb.club/dweb-api/get-index-data',
-                url:'http://127.0.0.1:9000/api/',
-                type:'json',
-                method: 'get',
-            }).then((res)=>{
-                console.log(res)
-                // this.imglist = res.data.newsdata
-            })
-        }
-    },
+  },
 };
 </script>
 
