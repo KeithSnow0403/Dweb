@@ -1,37 +1,48 @@
 <template>
   <div id="home">
+    <div>
+      <div class="header">
+        <h1>title</h1>
+        <img src="./assets/admin.jpg" alt />
+      </div>
 
-    <!-- 对应router文件下的index.js -->
-    <router-view/>
-    
+      <hr />
+
+      <div class="content">
+        <div class="menu">
+          <div class="item" style="background: #777; color: #fff;">
+            <router-link to="/" style="color:#fff;">Django</router-link>
+          </div>
+          <div class="item">
+            <router-link to="/Vuecli">VueCli</router-link>
+          </div>
+          <div class="item">
+            <a>实战博客</a>
+          </div>
+          <div class="item">
+            <a>项目部署</a>
+          </div>
+        </div>
+
+        <div class="userlist">
+          <p>Django</p>
+          <hr />
+
+          <!-- 对应router文件下的index.js -->
+          <router-view />
+        </div>
+      </div>
+    </div>
+
+    <hr />
+
+    <div class="foot">Copyright © 2020 KeithSnow</div>
   </div>
 </template>
 
 <script>
-export default {
-  
-}
+export default {};
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
