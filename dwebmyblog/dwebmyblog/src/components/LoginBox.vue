@@ -52,10 +52,9 @@ export default {
             case "pwd_err":
               alert("密码错误");
               break;
-            case "pwd_ok":
-              alert("登陆成功");
-              break;
             default:
+              console.log(res.data.token)
+              alert("登陆成功");
               break;
           }
         });

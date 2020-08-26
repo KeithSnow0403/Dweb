@@ -1,6 +1,7 @@
 # 类似与view.py的功能
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth.hashers import check_password
@@ -100,9 +101,14 @@ def toLogin(request):
         auth_pwd = check_password(password,user_pwd)
         print(auth_pwd)
         if auth_pwd:
-            return Response('pwd_ok')
+            token = Token.objects.update_or_create(user=user[0])
+            token = Token.objects.get(user=user[0])
+            print(token.key)
+            data = {
+                'token':token.key,
+            }
+            return Response(data)
         else:
             return Response('pwd_err')
     else:
         return Response('none')
-    return Response('ok')
