@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-from django.contrib.auth.hashers import check_password
+from django.contrib.auth.hashers import check_password,make_password
 
 from .models import Classes,Userinfo
 from .tojson import Classes_data,Userinfo_data 
@@ -112,3 +112,22 @@ def toLogin(request):
             return Response('pwd_err')
     else:
         return Response('none')
+
+
+
+@api_view(['POST'])
+def toRegister(request):
+    username = request.POST['username']
+    password = request.POST['password']
+    password2 = request.POST['password2']
+    print(username,password,password2)
+    # 用户是否存在
+    user = User.objects.filter(username=username)
+    if user:
+        return Response('exist')
+    else:
+        newPwd = make_password(password,username)
+        print(newPwd)
+        newUser = User(username=username, password=newPwd)
+        newUser.save()
+    return Response('ok') 

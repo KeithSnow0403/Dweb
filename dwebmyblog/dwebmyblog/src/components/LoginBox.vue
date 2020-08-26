@@ -31,7 +31,7 @@ export default {
     return {
       username: "",
       password: "",
-      password2:"",
+      password2: "",
     };
   },
   mounted() {
@@ -74,8 +74,41 @@ export default {
       }
     },
     //注册
-    toRegister(){
-    
+    toRegister() {
+      var username = this.username;
+      var password = this.password;
+      var password2 = this.password2;
+      console.log(username, password, password2);
+      if (username.length > 0 && password.length > 0 && password2.length > 0) {
+        if (password != password2) {
+          alert("密码不一致");
+        } else {
+          axios({
+            url: "http://127.0.0.1:9000/register/",
+            data: Qs.stringify({
+              username,
+              password,
+              password2,
+            }),
+            method: "post",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }).then((res) => {
+            console.log(res);
+            switch (res.data) {
+                case 'exist':
+                    alert('用户已存在')
+                    break;
+            
+                default:
+                    break;
+            }
+          });
+        }
+      }else{
+          alert('用户名或密码不能为空')
+      }
     },
     hideSelf() {
       this.$emit("hideBox");
