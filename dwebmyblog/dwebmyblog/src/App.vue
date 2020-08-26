@@ -1,5 +1,7 @@
 <template>
   <div id="home">
+    <button>登陆</button>
+    <button>注册</button>
     <div>
       <div class="header">
         <h1>title</h1>
@@ -37,9 +39,10 @@
           <router-view />
         </div>
       </div>
+      <hr />
     </div>
 
-    <hr />
+    <LoginBox></LoginBox>
 
     <div class="foot">Copyright © 2020 KeithSnow</div>
   </div>
@@ -47,7 +50,11 @@
 
 <script>
 import axios from "axios";
+import LoginBox from "../src/components/LoginBox"
 export default {
+  components:{
+    LoginBox
+  },
   data() {
     return {
       menuList: [],
