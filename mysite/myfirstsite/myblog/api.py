@@ -52,3 +52,24 @@ def getMenuList(requset):
         }
         data.append(data_item)
     return Response(data)
+
+
+@api_view(['GET'])
+def getUserList(request):
+    menuId = request.GET['id']
+    print(menuId)
+    menu = Classes.objects.get(id=menuId)
+    print(menu)
+    userlist = Userinfo.objects.filter(belong=menu)
+    print(userlist)
+    
+    # 开始整理数据列表
+    data = []
+    for user in userlist:
+        data_item = {
+            'id':user.id,
+            'nickName':user.nickname,
+            'headImg':str(user.headImg)
+        }
+        data.append(data_item)
+    return Response(data)

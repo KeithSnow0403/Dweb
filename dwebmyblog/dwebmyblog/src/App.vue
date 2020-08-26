@@ -16,7 +16,7 @@
               style="background: #777; color: #fff;"
               @click="chooseMenu(item.id)"
             >
-              <router-link to="/" style="color:#fff;">{{item.text}}</router-link>
+              <a style="color:#fff;">{{item.text}}</a>
             </div>
 
             <div 
@@ -24,13 +24,13 @@
               style="color: #000;" 
               @click="chooseMenu(item.id)"
             >
-              <router-link to="/" style="color:#000;">{{item.text}}</router-link>
+              <a style="color:#000;">{{item.text}}</a>
             </div>
           </div>
         </div>
 
         <div class="userlist">
-          <p>Django</p>
+          <p>{{choosed_text}}</p>
           <hr />
 
           <!-- 对应router文件下的index.js -->
@@ -52,6 +52,7 @@ export default {
     return {
       menuList: [],
       choosed: 3,
+      choosed_text:'Django后端'
     };
   },
   mounted() {
@@ -73,6 +74,13 @@ export default {
     chooseMenu(id){
       console.log(id)
       this.choosed = id
+      for (let i = 0; i < this.menuList.length; i++) {
+        if (id == this.menuList[i].id){
+          this.choosed_text = this.menuList[i].text
+        }        
+      }
+      //进行id传参跳转
+      this.$router.push({path:'/',query:{menuId:id}})
     }
   },
 };
