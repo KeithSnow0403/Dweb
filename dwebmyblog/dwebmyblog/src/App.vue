@@ -1,7 +1,7 @@
 <template>
   <div id="home">
-    <button>登陆</button>
-    <button>注册</button>
+    <button @click="showLoginRegisterBox(1)">登陆</button>
+    <button @click="showLoginRegisterBox(2)">注册</button>
     <div>
       <div class="header">
         <h1>title</h1>
@@ -42,7 +42,7 @@
       <hr />
     </div>
 
-    <LoginBox></LoginBox>
+    <LoginBox v-if="boxtarget" :target="boxtarget" @hideBox="hideLoginRegisterBox"></LoginBox>
 
     <div class="foot">Copyright © 2020 KeithSnow</div>
   </div>
@@ -59,7 +59,8 @@ export default {
     return {
       menuList: [],
       choosed: 3,
-      choosed_text:'Django后端'
+      choosed_text:'Django后端',
+      boxtarget:0,
     };
   },
   mounted() {
@@ -88,7 +89,15 @@ export default {
       }
       //进行id传参跳转
       this.$router.push({path:'/',query:{menuId:id}})
-    }
+    },
+    //展示登陆框
+    showLoginRegisterBox(value){
+      this.boxtarget = value
+    },
+    //隐藏父组件
+    hideLoginRegisterBox(){
+      this.boxtarget = 0
+    },
   },
 };
 </script>

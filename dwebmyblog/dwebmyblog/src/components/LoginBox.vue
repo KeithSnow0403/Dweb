@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div id="login" @click.self="hideSelf">
     <div id="loginbox">
       <div class="form">
         <div class="item">
@@ -10,7 +10,12 @@
           <div class="span">密码:</div>
           <input v-model="password" type="text" placeholder="请输入密码" />
         </div>
-        <button @click="toLogin">登陆</button>
+        <div v-if="target==2" class="item">
+          <div class="span">重复密码:</div>
+          <input v-model="password2" type="text" placeholder="请再次输入密码" />
+        </div>
+        <button v-if="target==1" @click="toLogin">登陆</button>
+        <button v-if="target==2" @click="toRegister">注册</button>
       </div>
     </div>
   </div>
@@ -21,13 +26,19 @@ import axios from "axios";
 import Qs from "qs";
 export default {
   name: "LoginBox",
+  props: ["target"],
   data() {
     return {
       username: "",
       password: "",
+      password2:"",
     };
   },
+  mounted() {
+    console.log(this.target);
+  },
   methods: {
+    //登陆
     toLogin() {
       console.log(this.username, this.password);
       var username = this.username;
@@ -53,7 +64,7 @@ export default {
               alert("密码错误");
               break;
             default:
-              console.log(res.data.token)
+              console.log(res.data.token);
               alert("登陆成功");
               break;
           }
@@ -61,6 +72,13 @@ export default {
       } else {
         alert("用户名或密码不能为空");
       }
+    },
+    //注册
+    toRegister(){
+    
+    },
+    hideSelf() {
+      this.$emit("hideBox");
     },
   },
   //   methods: {
@@ -95,6 +113,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #0002;
 }
 
 #loginbox {
