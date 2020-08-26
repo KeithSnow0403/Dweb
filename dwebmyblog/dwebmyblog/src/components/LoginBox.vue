@@ -17,56 +17,73 @@
 </template>
 
 <script>
-import axios from 'axios'
-import Qs from 'qs'
+import axios from "axios";
+import Qs from "qs";
 export default {
   name: "LoginBox",
   data() {
     return {
-      username: "", 
+      username: "",
       password: "",
     };
   },
   methods: {
-      toLogin(){
-          console.log(this.username,this.password)
-          var username = this.username
-          var password = this.password
-          axios({
-              url:'http://127.0.0.1:9000/login/',
-              data:Qs.stringify({
-                  username,
-                  password
-              }),
-              method:'post',
-              headers:{
-                  'Content-Type':'application/x-www-form-urlencoded'
-              }
-          }).then((res)=>{
-              console.log(res)
-          })
+    toLogin() {
+      console.log(this.username, this.password);
+      var username = this.username;
+      var password = this.password;
+      if (username.length > 0 && password.length > 0) {
+        axios({
+          url: "http://127.0.0.1:9000/login/",
+          data: Qs.stringify({
+            username,
+            password,
+          }),
+          method: "post",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }).then((res) => {
+          console.log(res);
+          switch (res.data) {
+            case "none":
+              alert("用户名不存在");
+              break;
+            case "pwd_err":
+              alert("密码错误");
+              break;
+            case "pwd_ok":
+              alert("登陆成功");
+              break;
+            default:
+              break;
+          }
+        });
+      } else {
+        alert("用户名或密码不能为空");
       }
+    },
   },
-//   methods: {
-//     toLogin() {
-//       console.log(this.username,this.password);
-//       var username = this.username
-//       var password = this.password
-//       axios({
-//         url: "http://127.0.0.1:9000/login/",
-//         data: {
-//             username,
-//             password
-//         },
-//         method:'post',
-//         headers:{
-//             "Content-Type":"application/x-www-form-urlencoded"
-//         },
-//       }).then((res)=>{
-//           console.log(res)
-//       })
-//     },
-//   },
+  //   methods: {
+  //     toLogin() {
+  //       console.log(this.username,this.password);
+  //       var username = this.username
+  //       var password = this.password
+  //       axios({
+  //         url: "http://127.0.0.1:9000/login/",
+  //         data: {
+  //             username,
+  //             password
+  //         },
+  //         method:'post',
+  //         headers:{
+  //             "Content-Type":"application/x-www-form-urlencoded"
+  //         },
+  //       }).then((res)=>{
+  //           console.log(res)
+  //       })
+  //     },
+  //   },
 };
 </script>
 
