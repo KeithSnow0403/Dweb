@@ -2,11 +2,11 @@
   <div id="login" @click.self="hideSelf">
     <div id="loginbox">
       <div class="form">
-        <div class="item">
+        <div v-if="target==1 || target==2" class="item">
           <div class="span">用户名:</div>
           <input v-model="username" type="text" placeholder="请输入用户名" />
         </div>
-        <div class="item">
+        <div v-if="target==1 || target==2" class="item">
           <div class="span">密码:</div>
           <input v-model="password" type="text" placeholder="请输入密码" />
         </div>
@@ -14,8 +14,18 @@
           <div class="span">重复密码:</div>
           <input v-model="password2" type="text" placeholder="请再次输入密码" />
         </div>
+        <div v-if="target==3" class="item">
+          <div class="span">网站名称:</div>
+          <input v-model="sitename" type="text" placeholder="请输入网站名称" />
+        </div>
+        <div v-if="target==3" class="item">
+          <div class="span">图片上传:</div>
+          <input id="uploadLogo" @change="uploadImg($event)" type="file" style="width:150px" />
+        </div>
+
         <button v-if="target==1" @click="toLogin">登陆</button>
         <button v-if="target==2" @click="toRegister">注册</button>
+        <button v-if="target==3" @click="toUpload">确定</button>
       </div>
     </div>
   </div>
@@ -32,6 +42,7 @@ export default {
       username: "",
       password: "",
       password2: "",
+      sitename:"",
     };
   },
   mounted() {
@@ -97,18 +108,41 @@ export default {
           }).then((res) => {
             console.log(res);
             switch (res.data) {
-                case 'exist':
-                    alert('用户已存在')
-                    break;
-            
-                default:
-                    break;
+              case "exist":
+                alert("用户已存在");
+                break;
+
+              default:
+                break;
             }
           });
         }
-      }else{
-          alert('用户名或密码不能为空')
+      } else {
+        alert("用户名或密码不能为空");
       }
+    },
+    toUpload(){
+        var sitename = this.sitename
+        // var logo = document.getElementById('uploadLogo').files[0]
+        console.log(sitename)
+        // console.log(logo)  
+    },
+    uploadImg(e){
+        // console.log(e)
+        var logo = e.target.files[0]
+        console.log(logo)
+        var img = new FormData()
+        img.append('logo',logo)
+        axios({
+            url:'http://127.0.0.1:9000/upload-logo/',
+            method:'post',
+            headers:{
+                'Content-Type':'application/x-www-form-urlencoded'
+            },
+            data:img,
+        }).then((res)=>{
+            console.log(res)
+        })
     },
     hideSelf() {
       this.$emit("hideBox");

@@ -116,6 +116,7 @@ def toLogin(request):
 
 
 @api_view(['POST'])
+# @api_view(['GET','POST'])  好像之前没写上
 def toRegister(request):
     username = request.POST['username']
     password = request.POST['password']
@@ -131,3 +132,11 @@ def toRegister(request):
         newUser = User(username=username, password=newPwd)
         newUser.save()
     return Response('ok') 
+
+
+
+@api_view(['POST'])
+def uploadLogo(request):
+    img = request.FILES['logo']
+    print(img)
+    return Response('ok')

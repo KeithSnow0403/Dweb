@@ -2,6 +2,7 @@
   <div id="home">
     <button @click="showLoginRegisterBox(1)">登陆</button>
     <button @click="showLoginRegisterBox(2)">注册</button>
+    <button @click="showLoginRegisterBox(3)">修改</button>
     <div>
       <div class="header">
         <h1>title</h1>
